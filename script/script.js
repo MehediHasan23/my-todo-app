@@ -131,18 +131,22 @@
 
   function complete(e) {
     let tdList = e.target.parentElement.parentElement.children
+    let item = e.target.parentElement.parentElement
+    let id = item.dataset.id
 
     let td = [...tdList]
     let tasks = getDataFromLocalStorage()
     td.forEach(td => {
       if (td.id === 'status') {
-        tasks.forEach(task => {
-          if (task.status === 'incomplete') {
-            task.status = 'complete'
-            td.innerHTML = 'complete'
-          } else {
-            task.status = 'incomplete'
-            td.innerHTML = 'incomplete'
+        tasks.filter(task => {
+          if (task.id === id) {
+            if (task.status === 'incomplete') {
+              task.status = 'complete'
+              td.innerHTML = 'complete'
+            } else {
+              task.status = 'incomplete'
+              td.innerHTML = 'incomplete'
+            }
           }
         })
       }
