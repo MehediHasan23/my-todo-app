@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>todo</title>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+  <link rel="stylesheet" href="./style/style.css">
+</head>
+<main>
+  <h1 class="man__title">My To-Do Lists</h1>
+  <h3>New Task Creation</h3>
+  <div class="separator"></div>
+  <!-- task form start -->
+  <form id="form">
+    <!-- task name -->
+    <div class="task__name">
+      <label for="name">Name</label>
+      <input type="text" name="name" id="name" placeholder="Add a new task">
+    </div>
+    <!-- task name end -->
+
+    <!-- priority -->
+    <div class="task__priority">
+      <label for="priority">Priority</label>
+      <select name="priority" id="priority">
+        <option disabled>Select One</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+    </div>
+    <!-- priority end -->
+
+
+    <!-- date start -->
+    <div class="date">
+      <label for="date">Date</label>
+      <input type="date" name="date" id="date">
+    </div>
+    <!-- date end -->
+
+    <!-- submit btn -->
+    <div class="submit">
+      <input type="submit" value="Add Now">
+    </div>
+  </form>
+
+  <!-- task form end -->
+
+
+  <!-- 2nd section start  && heading below-->
+  <h3>Task Management</h3>
+  <div class="separator"></div>
+  <!-- search  -->
+  <div class="tools">
+    <div class="search">
+      <label for="search">Search</label>
+      <input type="text" name="search" id="search" placeholder="search by name">
+    </div>
+
+    <!-- filter -->
+    <div class="filter">
+      <label for="filter">Filter</label>
+      <select name="filter" id="filter">
+        <option value="all">All</option>
+        <option value="complete">Complete</option>
+        <option value="incomplete">Incomplete</option>
+        <option value="today">Today</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>
+      </select>
+    </div>
+
+    <!-- sort -->
+    <div class="sort">
+      <label for="sort">Sort</label>
+      <select name="sort" id="sort">
+        <option value="newest">Newest</option>
+        <option value="old">Old</option>
+      </select>
+    </div>
+    <div class="by__date">
+      <label for="by__date">By Date</label>
+      <input type="date" name="by_date" id="by_date">
+    </div>
+  </div>
+
+  <!-- 2nd section end here -->
+
+
+  <!-- third section start -->
+
+  <table>
+    <thead>
+      <tr>
+        <th>No.</th>
+        <th>Task Name</th>
+        <th>Priority</th>
+        <th>Status</th>
+        <th>Date</th>
+        <th>Action</th>
+      </tr>
+    </thead>
+    <tbody id="tbody">
+      <!-- <tr>
+        <td>01.</td>
+        <td>Cricket</td>
+        <td>High</td>
+        <td>Incomplete</td>
+        <td>2022-02-08</td>
+        <td>
+          <button id="edit">
+            <i class="fas fa-pen"></i>
+          </button>
+          <button id="check">
+            <i class="fas fa-check"></i>
+          </button>
+          <button id="delete">
+            <i class="fas fa-trash"></i>
+          </button>
+        </td>
+      </tr> -->
+    </tbody>
+  </table>
+  <!-- third section end -->
+</main>
+
+<body>
+  <script src="https://cdn.jsdelivr.net/npm/uuid@latest/dist/umd/uuidv4.min.js"></script>
+  <script src="./script/script.js"></script>
+</body>
+
+</html>

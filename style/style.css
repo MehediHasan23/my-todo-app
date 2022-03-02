@@ -1,0 +1,162 @@
+/* font */
+
+@import url("https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900;1,100;1,300;1,400;1,500;1,700;1,900&display=swap");
+
+/* common css */
+*,
+::before,
+::after {
+  margin: 0%;
+  padding: 0%;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Roboto", sans-serif;
+  background: rgb(15, 8, 38);
+  display: flex;
+  align-items: center;
+  height: 100vh;
+  color: white;
+}
+/* common css || */
+
+main {
+  max-width: 1000px;
+  margin: auto;
+  background: #211548;
+  height: 95vh;
+  margin-top: 10px;
+  width: 100%;
+  padding: 15px;
+  border-radius: 8px;
+}
+
+.man__title {
+  text-align: center;
+  margin: 5px, 0px;
+}
+
+h3 {
+  font-size: 30px;
+  font-weight: 400;
+  margin-top: 15px;
+}
+
+.separator {
+  width: 100%;
+  height: 1px;
+  background: lightgray;
+  margin: 5px 0 10px;
+}
+
+#form {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+  gap: 10px;
+}
+
+#form label,
+.tools label {
+  font-size: 20px;
+  color: wheat;
+  margin: 0px 10px;
+}
+
+#form > div {
+  display: flex;
+  align-items: center;
+}
+
+.task__name {
+  flex: 1;
+}
+
+.task__name input {
+  width: 100%;
+}
+
+#form input,
+#form select,
+.tools input,
+.tools select {
+  height: 30px;
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-weight: bold;
+  border-radius: 3px;
+}
+
+#form .submit input {
+  background: green;
+  color: white;
+  border-radius: 3px;
+}
+
+.tools {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+table {
+  margin-top: 30px;
+}
+
+table,
+thead,
+tbody,
+tr {
+  display: block;
+  width: 100%;
+}
+
+tr {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+th,
+td {
+  flex: 1;
+  text-align: center;
+  margin: 10px 0px;
+  font-size: 18px;
+}
+
+thead {
+  /* background: #432160; */
+  background: #0f0826;
+  padding: 8px 0px;
+}
+
+button {
+  background: unset;
+  border: none;
+  outline: none;
+}
+
+button i {
+  font-size: 22px;
+  margin: 0px 10px;
+  color: #f8b500;
+  pointer-events: none;
+}
+
+tr:hover {
+  background: grey;
+}
+
+thead tr:hover {
+  background: unset;
+}
+
+tr:hover button .fa-trash {
+  color: #be3030;
+}
+tr:hover button .fa-check {
+  color: #1a554f;
+}
