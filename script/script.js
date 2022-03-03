@@ -100,7 +100,7 @@
       complete(e);
     }
     else if (e.target.id === 'edit') {
-      console.log('edit');
+      edit(e)
     }
   })
 
@@ -154,6 +154,130 @@
 
     setDataLocalStorage(tasks)
   }
+
+
+  /* ==============
+  edit event
+  ================= */
+  function edit(e) {
+    let data = e.target.parentElement.parentElement
+    let id = data.dataset.id
+    let allTd = data.children;
+
+    //name
+    let nameTd;
+    let nameInput;
+
+    //priority
+
+    let priorityTd;
+    let priorityInput;
+
+    //date
+    let dateTd;
+    let dateInput;
+
+    //action
+
+    let actionTd;
+    let preAction;
+
+
+    [...allTd].forEach(td => {
+      if (td.id === 'name') {
+        nameTd = td;
+        let preName = td.textContent;
+        td.innerHTML = ''
+        nameInput = document.createElement('input')
+        nameInput.type = 'text'
+        nameInput.value = preName;
+        td.appendChild(nameInput)
+
+      }
+      else if (td.id === 'priority') {
+        priorityTd = td;
+        let preText = td.textContent;
+        td.innerHTML = ''
+        priorityInput = document.createElement('select')
+        priorityInput.innerHTML = `
+        <option disabled>Select One</option>
+        <option value="high">High</option>
+        <option value="medium">Medium</option>
+        <option value="low">Low</option>  
+        `
+        if (preText === 'high') {
+          priorityInput.selectedIndex = 1
+        }
+        else if (preText === 'medium') {
+          priorityInput.selectedIndex = 2
+        } else if (preText === 'low') {
+          priorityInput.selectedIndex = 3
+        }
+
+        td.appendChild(priorityInput)
+
+      }
+      else if (td.id === 'date') {
+        dateTd = td;
+        let preDate = td.textContent;
+        td.innerHTML = '';
+        dateInput = document.createElement('input')
+        dateInput.type = 'date';
+        dateInput.value = preDate
+        td.appendChild(dateInput)
+
+
+      }
+      else if (td.id === 'action') {
+        actionTd = td;
+        preAction = td.innerHTML;
+        td.innerHTML = ''
+        let btn = document.createElement('button')
+        btn.innerHTML = "<i class ='fas fa-sd-card'></i>"
+
+        btn.addEventListener('click', function (e) {
+          let newName = nameInput.value;
+          nameTd.innerHTML = newName;
+
+          let newPriority = priorityInput.value;
+          priorityTd.innerHTML = newPriority;
+
+          let newDate = dateInput.value;
+          dateTd.innerHTML = newDate;
+
+          actionTd.innerHTML = preAction
+
+          let tasks = getDataFromLocalStorage()
+          tasks.forEach(task => {
+            if (task.id === id) {
+              task.name = newName;
+              task.priority = newPriority;
+              task.date = newDate;
+            } else {
+              return task;
+            }
+          })
+          setDataLocalStorage(tasks);
+
+
+        })
+
+        td.appendChild(btn)
+
+      }
+
+    })
+
+
+
+  }
+
+
+
+
+
+
+
 
 
 
