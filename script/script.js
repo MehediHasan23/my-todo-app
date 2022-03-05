@@ -7,8 +7,199 @@
   let form = $('form');
   let date = $('date');
   let tbody = $('tbody');
+  let search = $('search')
+  let filter = $('filter')
+  let sort = $('sort')
+  let by_date = $('by_date')
   let today = new Date().toISOString().slice(0, 10)
   date.value = today;
+
+  /* ========================
+  implement search function 
+  ===========================*/
+
+  search.addEventListener('input', function (e) {
+    tbody.innerHTML = '';
+    filter.selectedIndex = 0;
+    sort.selectedIndex = 0;
+    by_date.value = '';
+
+
+    let value = this.value.toLowerCase()
+    let tasks = getDataFromLocalStorage()
+    let index = 0;
+    tasks.forEach((task) => {
+      if (task.name.toLowerCase().includes(value)) {
+        ++index
+        displayToUi(task, index)
+      }
+    })
+  })
+
+
+  /*======================
+   implement filtering
+   ======================== */
+
+  filter.addEventListener('change', function (e) {
+    tbody.innerHTML = '';
+    search.value = ''
+    sort.selectedIndex = 0;
+    by_date.value = '';
+
+
+    let value = this.value;
+    let tasks = getDataFromLocalStorage()
+
+    switch (value) {
+      case 'all':
+        tasks.forEach((task, i) => {
+          displayToUi(task, i + 1);
+        })
+        break;
+
+      case 'complete':
+        let completeIndex = 0;
+        tasks.forEach((task) => {
+
+          if (task.status === 'complete') {
+            ++completeIndex;
+            displayToUi(task, completeIndex);
+
+          }
+        })
+        break;
+
+      case 'incomplete':
+        let incompleteIndex = 0;
+        tasks.forEach((task) => {
+
+          if (task.status === 'incomplete') {
+            ++incompleteIndex;
+            displayToUi(task, incompleteIndex);
+
+          }
+        })
+        break;
+
+      case 'today':
+        let todayIndex = 0;
+        tasks.forEach(task => {
+          if (task.date === today) {
+            ++todayIndex;
+            displayToUi(task, todayIndex)
+          }
+        })
+        break;
+
+
+      case 'high':
+        let highIndex = 0;
+        tasks.forEach((task) => {
+
+          if (task.priority === 'high') {
+            ++highIndex;
+            displayToUi(task, highIndex);
+
+          }
+        })
+        break;
+
+
+      case 'medium':
+        let mediumIndex = 0;
+        tasks.forEach((task) => {
+
+          if (task.priority === 'medium') {
+            ++mediumIndex;
+
+            displayToUi(task, mediumIndex);
+
+          }
+        })
+        break;
+
+
+      case 'low':
+        let lowIndex = 0;
+        tasks.forEach((task) => {
+
+          if (task.priority === 'low') {
+            ++lowIndex;
+            displayToUi(task, lowIndex);
+
+          }
+        })
+        break;
+    }
+
+  })
+
+
+
+  /* implement sort event */
+
+  sort.addEventListener('change', function (e) {
+    tbody.innerHTML = '';
+    search.value = ''
+    filter.selectedIndex = 0;
+    by_date.value = '';
+    let value = this.value;
+
+    let tasks = getDataFromLocalStorage()
+
+    if (value === 'newest') {
+      tasks.sort((a, b) => {
+        if (new Date(a.date) > new Date(b.date)) {
+          return -1;
+        }
+        else if (new Date(a.date) < new Date(b.date)) {
+          return 1;
+        } else {
+          return 0;
+        }
+      })
+
+    } else {
+      tasks.sort((a, b) => {
+        if (new Date(a.date) > new Date(b.date)) {
+          return 1;
+        }
+        else if (new Date(a.date) < new Date(b.date)) {
+          return -1;
+        } else {
+          return 0;
+        }
+      })
+    }
+
+    tasks.forEach((task, i) => {
+      displayToUi(task, i + 1)
+    })
+
+  })
+
+
+  /* ======================
+  implement date event
+  ======================== */
+
+  by_date.addEventListener('change', function (e) {
+    tbody.innerHTML = '';
+    search.value = ''
+    filter.selectedIndex = 0;
+    let value = this.value;
+    let tasks = getDataFromLocalStorage()
+    let dateIndex = 0;
+    tasks.filter((task) => {
+      if (task.date === value) {
+        ++dateIndex
+        displayToUi(task, dateIndex)
+      }
+    })
+  })
+
+
 
   /* ================ 
   form data
