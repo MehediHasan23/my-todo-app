@@ -14,7 +14,7 @@
   let edit_Date = $('edit_date')
   let today = new Date().toISOString().slice(0, 10)
   date.value = today;
-  edit_Date.value = today;
+  // edit_Date.value = today;
 
   /* ========================
   implement search function 
@@ -363,34 +363,34 @@
     $('edit_form').addEventListener('submit', function (e) {
       e.preventDefault();
       let data = {};
-      let isValid = true;
+
       [...this.elements].forEach(el => {
         if (el.type !== 'submit') {
-          if (el.value === '') {
-            alert('update with valid data')
-            isValid = false;
+          if (el.value === '' || el.selectedIndex === 0) {
+
             return;
-          } else {
+          }
+          else {
             data[el.name] = el.value
+
           }
         }
       })
-      if (isValid) {
+      if (Object.keys(data).length) {
         selectedArray.forEach(tr => {
           id = tr.dataset.id;
-          let name;
-          let priority;
-          let date;
+
           ;[...tr.children].forEach(td => {
-            if (td.id === 'name') {
+
+            if (td.id === 'name' && Object.keys(data).includes('name')) {
               td.textContent = data.name;
-              name = data.name
-            } else if (td.id === 'priority') {
+
+            } else if (td.id === 'priority' && Object.keys(data).includes('priority')) {
               td.textContent = data.priority;
-              priority = data.priority;
-            } else if (td.id === 'date') {
+
+            } else if (td.id === 'date' && Object.keys(data).includes('date')) {
               td.textContent = data.date;
-              date = data.date;
+
             }
           })
 
@@ -404,11 +404,12 @@
 
           });
           let updatedDate = tasks[index];
-          updatedDate['name'] = name;
-          updatedDate['priority'] = priority;
-          updatedDate['date'] = date;
+          updatedDate['name'] = data.name || updatedDate['name']
+          updatedDate['priority'] = data.priority || updatedDate['priority']
+          updatedDate['date'] = data.date || updatedDate['date']
           tasks.splice(index, 1, updatedDate);
           setDataLocalStorage(tasks);
+          reload()
 
         })
 
