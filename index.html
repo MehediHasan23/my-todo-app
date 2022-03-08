@@ -93,19 +93,64 @@
 
 
   <!-- third section start -->
+
+
   <div id="bulk_action">
     <button id="delete__btn">Delete</button>
-    <div id="e__btn">
-      <button id="edit__btn">Edit</button>
-    </div>
+
+    <button id="edit__btn">Edit</button>
+
     <button id="dismiss">X</button>
   </div>
+
+  <!-- edit section start -->
+
+  <div id="edit_section">
+    <form id="edit_form">
+      <!-- task name -->
+      <div class="task__name">
+        <label for="edit_name">Name</label>
+        <input type="text" name="name" id="edit_name" placeholder="Add a new task">
+      </div>
+      <!-- task name end -->
+
+      <!-- priority -->
+      <div class="task__priority">
+        <label for="edit_priority">Priority</label>
+        <select name="priority" id="edit_priority">
+          <option disabled>Select One</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </div>
+      <!-- priority end -->
+
+
+      <!-- date start -->
+      <div class="edit_date">
+        <label for="edit_date">Date</label>
+        <input type="date" name="date" id="edit_date">
+      </div>
+      <!-- date end -->
+
+      <!-- submit btn -->
+      <div class="edit_submit">
+        <input type="submit" value="Add Now">
+      </div>
+    </form>
+  </div>
+
+  <!-- edit section end -->
+
+
+
 
   <table>
     <thead>
       <tr>
         <th>
-          <label  style="margin-right: 5px;" for="checkbox">All</label>
+          <label style="margin-right: 5px;" for="checkbox">All</label>
           <input style="margin-right: 32px;" type="checkbox" name="checkbox" id="checkbox">
         </th>
         <th>No.</th>

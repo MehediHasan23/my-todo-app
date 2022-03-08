@@ -11,8 +11,10 @@
   let filter = $('filter')
   let sort = $('sort')
   let by_date = $('by_date')
+  let edit_Date = $('edit_date')
   let today = new Date().toISOString().slice(0, 10)
   date.value = today;
+  edit_Date.value = today;
 
   /* ========================
   implement search function 
@@ -312,7 +314,7 @@
 
   function bulkDiv() {
     if (selectedArray.length) {
-      $('bulk_action').style.display = 'flex'
+      $('bulk_action').style.display = 'block'
     } else {
       $('bulk_action').style.display = 'none'
 
@@ -354,11 +356,69 @@
 
 
   /* ==========
-  B__edit event
+  Bulk__edit event
   ============= */
+  $('edit__btn').addEventListener('click', function (e) {
+    $('edit_section').style.display = 'block';
+    $('edit_form').addEventListener('submit', function (e) {
+      e.preventDefault();
+      let data = {};
+      let isValid = true;
+      [...this.elements].forEach(el => {
+        if (el.type !== 'submit') {
+          if (el.value === '') {
+            alert('update with valid data')
+            isValid = false;
+            return;
+          } else {
+            data[el.name] = el.value
+          }
+        }
+      })
+      if (isValid) {
+        selectedArray.forEach(tr => {
+          id = tr.dataset.id;
+          let name;
+          let priority;
+          let date;
+          ;[...tr.children].forEach(td => {
+            if (td.id === 'name') {
+              td.textContent = data.name;
+              name = data.name
+            } else if (td.id === 'priority') {
+              td.textContent = data.priority;
+              priority = data.priority;
+            } else if (td.id === 'date') {
+              td.textContent = data.date;
+              date = data.date;
+            }
+          })
 
-  
+          let tasks = getDataFromLocalStorage()
+          let index;
+          tasks.filter((tr, i) => {
+            if (tr.id === id) {
+              index = i
+              return tr
+            }
 
+          });
+          let updatedDate = tasks[index];
+          updatedDate['name'] = name;
+          updatedDate['priority'] = priority;
+          updatedDate['date'] = date;
+          tasks.splice(index, 1, updatedDate);
+          setDataLocalStorage(tasks);
+
+        })
+
+
+      }
+      this.reset();
+      edit_Date.value = today;
+      $('edit_section').style.display = 'none';
+    })
+  })
 
 
 
@@ -581,22 +641,6 @@
     })
 
   }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
