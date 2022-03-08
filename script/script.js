@@ -230,6 +230,7 @@
       displayToUi(task, tasks.length);
     }
     this.reset();
+    $('date').value = today;
   })
 
 
@@ -249,13 +250,132 @@
     })
   }
 
+
+  /* ==============
+  selected Array
+  ================= */
+
+  let selectedArray = []
+
+  /* ==================
+  selected event
+  ====================== */
+
+  function selectedFunction(e) {
+    let td = e.target.parentElement.parentElement;
+    let id = td.dataset.id;
+    let checked = e.target.checked;
+
+    if (checked) {
+      selectedArray.push(td)
+      bulkDiv()
+
+    } else {
+      let index = selectedArray.findIndex(td => td.id === id)
+      selectedArray.splice(index, 1)
+      bulkDiv()
+    }
+
+  }
+
+
+
+  /*=====================
+   select all event
+  ===================== */
+
+  $('checkbox').addEventListener('change', function (e) {
+    let checked = e.target.checked;
+    let checkBoxes = document.querySelectorAll('.check');
+    selectedArray = [];
+    if (checked) {
+      [...checkBoxes].forEach(checkBox => {
+        checkBox.checked = true;
+        let td = checkBox.parentElement.parentElement
+        selectedArray.push(td)
+        bulkDiv()
+      })
+    } else {
+      [...checkBoxes].forEach(checkBox => {
+        checkBox.checked = false;
+        bulkDiv()
+      })
+    }
+
+
+  })
+
+
+  /* ==============
+  showing bulk div
+  ================*/
+
+  function bulkDiv() {
+    if (selectedArray.length) {
+      $('bulk_action').style.display = 'flex'
+    } else {
+      $('bulk_action').style.display = 'none'
+
+    }
+  }
+
+
+  /*================
+   dismiss event 
+   =================*/
+
+  $('dismiss').addEventListener('click', function () {
+    let checkBoxes = document.querySelectorAll('.check');
+    [...checkBoxes].forEach(checkBox => {
+      checkBox.checked = false;
+    });
+    $('checkbox').checked = false;
+    $('bulk_action').style.display = 'none';
+  })
+
+
+
+  /*==============
+   delete event
+  ================ */
+  $('delete__btn').addEventListener('click', function (e) {
+    let tasks = getDataFromLocalStorage()
+
+    selectedArray.forEach(td => {
+      let id = td.dataset.id;
+      tasks = tasks.filter(td => td.id !== id)
+      td.remove()
+      $('checkbox').checked = false;
+    })
+
+    setDataLocalStorage(tasks);
+
+  })
+
+
+  /* ==========
+  B__edit event
+  ============= */
+
+  
+
+
+
+
   /* =====================
   * display data on ui
   ======================== */
 
   function displayToUi({ name, priority, date, status, id }, index) {
     let tr = document.createElement('tr')
+    let checkBox = document.createElement('input');
+    checkBox.type = 'checkbox'
+    checkBox.className = 'check'
+
+    checkBox.addEventListener('change', selectedFunction)
+
     tr.innerHTML = `
+    <td class="checked"></td>
       <td id="index">${index}</td>
         <td id="name">${name}</td>
         <td id="priority">${priority}</td>
@@ -275,6 +395,7 @@
     
     `
     tr.dataset.id = id
+    tr.firstElementChild.appendChild(checkBox)
     tbody.appendChild(tr);
   }
 
@@ -458,8 +579,6 @@
       }
 
     })
-
-
 
   }
 

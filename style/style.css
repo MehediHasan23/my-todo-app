@@ -102,7 +102,7 @@ h3 {
 }
 
 table {
-  margin-top: 30px;
+  margin-top: 8px;
 }
 
 table,
@@ -159,4 +159,52 @@ tr:hover button .fa-trash {
 }
 tr:hover button .fa-check {
   color: #1a554f;
+}
+
+#bulk_action {
+  display: none;
+  justify-content: space-between;
+  margin-top: 10px;
+  height: 40px;
+  padding: 5px 8px;
+  background-color: white;
+  border-radius: 8px;
+  margin-top: 8px;
+}
+
+#delete__btn {
+  background-color: rgba(236, 86, 66, 0.808);
+  padding: 5px 10px;
+  font-size: 16px;
+  color: white;
+  font-weight: 700;
+  border-radius: 8px;
+  margin-left: 40px;
+}
+
+#edit__btn {
+  background-color: yellow;
+  padding: 5px 20px;
+  font-size: 16px;
+  color: black;
+  font-weight: 700;
+  border-radius: 8px;
+}
+
+.edit__btn {
+  background-color: rgb(255, 0, 0);
+  padding: 5px 20px;
+  font-size: 16px;
+  color: white;
+  font-weight: 700;
+  border-radius: 8px;
+}
+
+#dismiss {
+  background-color: green;
+  padding: 5px 20px;
+  border-radius: 8px;
+  color: white;
+  font-weight: 700;
+  margin-right: 40px;
 }
